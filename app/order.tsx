@@ -8,7 +8,6 @@ import {
   InputGroup,
   InputRightAddon,
   Modal,
-  PresenceTransition,
   Pressable,
   ScrollView,
   Spacer,
@@ -36,14 +35,11 @@ interface Recipe {
   codes: codeProp[];
 }
 
-export default function OrderScreen({ route }: any) {
-  console.log(route.params);
-  // const { mxs, outOrderId } = route.params as {
-  //   mxs: string;
-  //   outOrderId: string;
-  // };
-  const mxs = JSON.parse(route.params.mxs) as Recipe[];
-  const outOrderId = route.params.outOrderId;
+export default function OrderScreen({ navigation, route }: any) {
+  const { mxs, outOrderId } = route.params as {
+    mxs: Recipe[];
+    outOrderId: string;
+  };
   const [open, setOpen] = useState(false);
   const [binCode, setBinCode] = useState("");
   const [stockCode, setStockCode] = useState("");
@@ -57,23 +53,24 @@ export default function OrderScreen({ route }: any) {
   };
 
   useEffect(() => {
-    Promise.all(mxs.map((mx) => getOutList({ recipeId: mx.recipeId }))).then(
-      (res) => {
-        if (res.every((r) => r.code === 200)) {
-          console.log("res", res);
-          setDataList(
-            mxs.map((mx, index) => ({
-              ...mx,
-              codes: res[index].data.map((s: codeProp) => ({
-                code: s.code,
-                binCode: s.binCode,
-              })),
-            }))
-          );
+    if (mxs) {
+      Promise.all(mxs.map((mx) => getOutList({ recipeId: mx.recipeId }))).then(
+        (res) => {
+          if (res.every((r) => r.code === 200)) {
+            setDataList(
+              mxs.map((mx, index) => ({
+                ...mx,
+                codes: res[index].data.map((s: codeProp) => ({
+                  code: s.code,
+                  binCode: s.binCode,
+                })),
+              }))
+            );
+          }
         }
-      }
-    );
-  }, []);
+      );
+    }
+  }, [mxs]);
 
   const handleChange = (text: string) => {
     setFilter(text);
@@ -93,6 +90,7 @@ export default function OrderScreen({ route }: any) {
             );
           },
         });
+        navigation.navigate("outStock");
       } else {
         toast.show({
           placement: "top",
@@ -166,7 +164,9 @@ export default function OrderScreen({ route }: any) {
                           m="1"
                         >
                           <HStack>
-                            {code.binCode}-{code.code}
+                            <Text>
+                              {code.binCode}-{code.code}
+                            </Text>
                           </HStack>
                         </Pressable>
                       ))}

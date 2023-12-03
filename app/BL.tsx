@@ -39,7 +39,6 @@ export default function BL({ navigation, route }: any) {
   const toast = useToast();
 
   const handleChange = (text: string) => {
-    console.log(text);
     const findItem = dataList.find((data) => data.mxCode === text);
     if (findItem && !checkList.includes(findItem.id)) {
       setCheckList([...checkList, findItem.id]);
@@ -161,6 +160,7 @@ const styles = StyleSheet.create({
   bottom: {
     position: "fixed",
     bottom: 0,
+    top: "auto",
     width: "100%",
   },
 });

@@ -15,9 +15,10 @@ import {
   VStack,
   View,
 } from "native-base";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { getOutStock } from "../utils/request";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface Recipe {
   totalNumber: number;
@@ -35,22 +36,23 @@ export default function OutStockScreen({ navigation }: any) {
   const [dataList, setDataList] = useState<OutStock[]>([]);
   const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    getOutStock().then((res) => {
-      if (res.code === 200) {
-        setDataList(res.data);
-      }
-    });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getOutStock().then((res) => {
+        if (res.code === 200) {
+          setDataList(res.data);
+        }
+      });
+    }, [])
+  );
 
   const handleChange = (text: string) => {
     setFilter(text);
   };
 
   const handlePress = (data: OutStock) => {
-    console.log(data);
     navigation.navigate("order", {
-      mxs: JSON.stringify(data.items),
+      mxs: data.items,
       outOrderId: data.id,
     });
   };

@@ -39,5 +39,5 @@ export function outOrder(params: any) {
 }
 
 export function cancelBl(blId: number) {
-  return request("/wms/bl/cancel", { blId });
+  return request("/wms/bl/cancel/shelve", { blId });
 }
