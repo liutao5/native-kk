@@ -1,14 +1,10 @@
 import { StyleSheet } from "react-native";
 import {
-  Badge,
   Box,
-  Center,
   ChevronRightIcon,
   Divider,
-  Flex,
   HStack,
   Heading,
-  Icon,
   Input,
   InputGroup,
   InputRightAddon,
@@ -17,13 +13,12 @@ import {
   Spacer,
   Text,
   VStack,
-  View,
   useToast,
 } from "native-base";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { getBl } from "../utils/request";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { MX } from "./BL";
 
 export interface Check {

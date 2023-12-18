@@ -220,7 +220,9 @@ export default function OrderScreen({ navigation, route }: any) {
             </InputGroup>
           </Modal.Body>
           <Modal.Footer>
-            <Button onPress={handleSubmit}>下架</Button>
+            <Button onPress={handleSubmit} color="#4aa9ff">
+              下架
+            </Button>
           </Modal.Footer>
         </Modal.Content>
       </Modal>

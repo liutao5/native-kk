@@ -1,19 +1,48 @@
-import { Link } from "@react-navigation/native";
-import { Center, Flex, Text, View } from "native-base";
+import { Link, useFocusEffect } from "@react-navigation/native";
+import { Center, VStack, View } from "native-base";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
-export default function HomeScreen() {
+async function getToken() {
+  return await SecureStore.getItemAsync("token");
+}
+
+export default function HomeScreen({ navigation }: any) {
+  const [loaded, setLoaded] = useState(false);
+
+  useFocusEffect(() => {
+    getToken().then((token) => {
+      console.log(token);
+      if (!token) {
+        navigation.navigate("login");
+      } else {
+        setLoaded(true);
+      }
+    });
+  });
+
+  if (loaded) {
+    return <Home />;
+  }
+
+  return null;
+}
+
+function Home() {
   return (
     <View style={styles.container}>
-      <Flex direction="row" justifyContent="space-around" w="90%">
+      <VStack w="90%" h="container" space={12}>
         <Link to={{ screen: "check" }}>
           <Center
-            size={16}
+            size={24}
+            w="100%"
             bg="primary.500"
             rounded="sm"
             _text={{
               color: "white",
-              fontWeight: "medium",
+              fontWeight: "bold",
+              fontSize: "3xl",
             }}
           >
             投料验收
@@ -21,12 +50,14 @@ export default function HomeScreen() {
         </Link>
         <Link to={{ screen: "inStock" }}>
           <Center
-            size={16}
+            size={24}
+            w="100%"
             bg="secondary.500"
             rounded="sm"
             _text={{
               color: "white",
-              fontWeight: "medium",
+              fontWeight: "bold",
+              fontSize: "3xl",
             }}
           >
             上架入库
@@ -34,18 +65,20 @@ export default function HomeScreen() {
         </Link>
         <Link to={{ screen: "outStock" }}>
           <Center
-            size={16}
+            size={24}
+            w="100%"
             bg="primary.500"
             rounded="sm"
             _text={{
               color: "white",
-              fontWeight: "medium",
+              fontWeight: "bold",
+              fontSize: "3xl",
             }}
           >
             下架出库
           </Center>
         </Link>
-      </Flex>
+      </VStack>
     </View>
   );
 }

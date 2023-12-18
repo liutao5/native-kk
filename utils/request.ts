@@ -1,4 +1,5 @@
 const HOST_API = "http://106.15.139.63:8080";
+// const HOST_API = "http://192.168.188.188:8080";
 
 function request(url: string, params: object = {}) {
   return fetch(HOST_API + url, {
@@ -38,6 +39,10 @@ export function outOrder(params: any) {
   return request("/wms/order/out", params);
 }
 
-export function cancelBl(blId: number) {
-  return request("/wms/bl/cancel/shelve", { blId });
+export function cancelBl(stockCode: number) {
+  return request("/wms/bl/cancel/shelve", { stockCode });
+}
+
+export function login(username: string, password: string) {
+  return request("/login", { username, password });
 }

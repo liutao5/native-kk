@@ -1,12 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
-import { Stack } from "expo-router";
 import {
   Box,
   Button,
   Checkbox,
-  ChevronRightIcon,
-  Divider,
   HStack,
   Heading,
   Input,
@@ -14,14 +11,11 @@ import {
   InputRightAddon,
   Pressable,
   ScrollView,
-  Spacer,
   Text,
   VStack,
-  View,
   useToast,
 } from "native-base";
 import { useState } from "react";
-import { Check } from "./(tabs)/check";
 import { checkBl } from "../utils/request";
 
 export interface MX {
@@ -85,8 +79,8 @@ export default function BL({ navigation, route }: any) {
   };
 
   return (
-    <ScrollView>
-      <Box style={styles.container} bgColor="info.700">
+    <Box style={styles.container} bgColor="info.700">
+      <ScrollView>
         <VStack space={4} alignItems="center">
           <InputGroup w="99%" bg="white">
             <Input
@@ -127,11 +121,11 @@ export default function BL({ navigation, route }: any) {
             </Box>
           ))}
         </VStack>
-      </Box>
-      <Button style={styles.bottom} onPress={handleCheck}>
+      </ScrollView>
+      <Button style={styles.bottom} onPress={handleCheck} bgColor="#4aa9ff">
         投料
       </Button>
-    </ScrollView>
+    </Box>
   );
 }
 

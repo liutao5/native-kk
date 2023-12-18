@@ -14,6 +14,7 @@ import {
   Text,
   VStack,
   View,
+  WarningIcon,
   useToast,
 } from "native-base";
 import { useEffect, useState } from "react";
@@ -156,6 +157,18 @@ export default function InStockScreen() {
               }
             />
           </InputGroup>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            w="95%"
+          >
+            <WarningIcon />
+            <Text color="#999999" py={0}>
+              无推荐仓位时！请关注，仓库物资积压过多，无仓位!
+            </Text>
+          </Box>
           {dataList
             .filter((data) => data.code.includes(filter))
             .map((data) => (
@@ -216,10 +229,13 @@ export default function InStockScreen() {
                 onPress={handleCancel}
                 variant="ghost"
                 colorScheme="blueGray"
+                w="50%"
               >
                 报废
               </Button>
-              <Button onPress={handleSubmit}>上架</Button>
+              <Button onPress={handleSubmit} w="50%" bgColor="#4aa9ff">
+                上架
+              </Button>
             </Button.Group>
           </Modal.Footer>
         </Modal.Content>
