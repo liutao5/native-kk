@@ -243,55 +243,69 @@ export default function OutStockScreen({ navigation }: any) {
             ))}
         </VStack>
       </Box>
-      <Modal isOpen={open} onClose={handleClose}>
-        <Modal.Content maxW="100%" w="100%" marginBottom={0} marginTop={"auto"}>
-          <Modal.CloseButton />
-          <Modal.Header>下架拣选</Modal.Header>
-          <Modal.Body>
-            <FormControl.Label>库位码</FormControl.Label>
-            <InputGroup w="99%" bg="white">
-              <Input
-                w="90%"
-                placeholder=""
-                value={binCode}
-                onChangeText={(text) => setBinCode(text)}
-              />
-              <InputRightAddon
-                children={
-                  <MaterialCommunityIcons
-                    name="line-scan"
-                    size={24}
-                    color="black"
-                  />
-                }
-              />
-            </InputGroup>
-            <FormControl.Label>吨包号</FormControl.Label>
-            <InputGroup w="99%" bg="white">
-              <Input
-                w="90%"
-                placeholder=""
-                value={stockCode}
-                onChangeText={(text) => setStockCode(text)}
-              />
-              <InputRightAddon
-                children={
-                  <MaterialCommunityIcons
-                    name="line-scan"
-                    size={24}
-                    color="black"
-                  />
-                }
-              />
-            </InputGroup>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button w="100%" onPress={handleSubmit} bgColor="#4aa9ff">
-              下架
-            </Button>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
+      {open && (
+        <Modal
+          isOpen={open}
+          onClose={handleClose}
+          _overlay={{
+            useRNModal: false,
+            useRNModalOnAndroid: false,
+          }}
+        >
+          <Modal.Content
+            maxW="100%"
+            w="100%"
+            marginBottom={0}
+            marginTop={"auto"}
+          >
+            <Modal.CloseButton />
+            <Modal.Header>下架拣选</Modal.Header>
+            <Modal.Body>
+              <FormControl.Label>库位码</FormControl.Label>
+              <InputGroup w="99%" bg="white">
+                <Input
+                  w="90%"
+                  placeholder=""
+                  value={binCode}
+                  onChangeText={(text) => setBinCode(text)}
+                />
+                <InputRightAddon
+                  children={
+                    <MaterialCommunityIcons
+                      name="line-scan"
+                      size={24}
+                      color="black"
+                    />
+                  }
+                />
+              </InputGroup>
+              <FormControl.Label>吨包号</FormControl.Label>
+              <InputGroup w="99%" bg="white">
+                <Input
+                  w="90%"
+                  placeholder=""
+                  value={stockCode}
+                  onChangeText={(text) => setStockCode(text)}
+                />
+                <InputRightAddon
+                  children={
+                    <MaterialCommunityIcons
+                      name="line-scan"
+                      size={24}
+                      color="black"
+                    />
+                  }
+                />
+              </InputGroup>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button w="100%" onPress={handleSubmit} bgColor="#4aa9ff">
+                下架
+              </Button>
+            </Modal.Footer>
+          </Modal.Content>
+        </Modal>
+      )}
     </ScrollView>
   );
 }

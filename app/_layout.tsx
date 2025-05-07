@@ -4,22 +4,23 @@ import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { IconButton, NativeBaseProvider } from "native-base";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
-import ModalScreen from "./modal";
 import BL from "./BL";
-import InStockScreen from "./inStock";
-import HomeScreen from "./home";
 import CheckScreen from "./check";
-import OutStockScreen from "./outStock";
-import OrderScreen from "./order";
+import HomeScreen from "./home";
+import InStockScreen from "./inStock";
 import LoginScreen from "./login";
+import ModalScreen from "./modal";
+import OrderScreen from "./order";
+import OutStockScreen from "./outStock";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import QuickReturnScreen from "./quickReturn";
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -101,6 +102,11 @@ function RootLayoutNav() {
           name="outStock"
           component={OutStockScreen}
           options={() => ({ title: "下架出库" })}
+        />
+        <Stack.Screen
+          name="quickReturn"
+          component={QuickReturnScreen}
+          options={() => ({ title: "快速返库" })}
         />
         <Stack.Screen
           name="order"
